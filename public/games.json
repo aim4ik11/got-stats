@@ -1,0 +1,49 @@
+[
+  {
+    "players": [
+      {
+        "playerId": "i2hlvdkcfmrup6e24pbdzo",
+        "faction": "Stark",
+        "points": 15
+      },
+      {
+        "playerId": "3x4csv2d8ae8s95idzek8d",
+        "faction": "Tyrell",
+        "points": 12
+      },
+      {
+        "playerId": "7ow8k713ctwb9snfkvbn3s",
+        "faction": "Martell",
+        "points": 10
+      },
+      {
+        "playerId": "6nv9ohy3eqjt8dxyh1a4",
+        "faction": "Baratheon",
+        "points": 8
+      },
+      {
+        "playerId": "xx9i84s087idbrqib6yf",
+        "faction": "Targaryen",
+        "points": 6
+      },
+      {
+        "playerId": "bu878ncdrfejd1i3az8geh",
+        "faction": "Arryn",
+        "points": 4
+      },
+      {
+        "playerId": "k6253ktmahe27bmr0wsbum",
+        "faction": "Greyjoy",
+        "isMVP": true,
+        "points": 3
+      },
+      {
+        "playerId": "nxrtvvxhhecpo6uttc883g",
+        "faction": "Lannister",
+        "points": 1
+      }
+    ],
+    "date": "25.08.2024",
+    "mvpId": "k6253ktmahe27bmr0wsbum"
+  }
+]
