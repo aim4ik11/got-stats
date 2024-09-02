@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 const gamesFilePath = path.resolve('public/games.json');
 const playersFilePath = path.join('public/players.json');
 
-export const addGame = async (newGame: Game) => {
+export const addGame = async (newGame: any) => {
   try {
     const fileData = await fs.readFile(gamesFilePath, 'utf-8');
     const games = JSON.parse(fileData) as Game[];

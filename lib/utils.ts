@@ -104,7 +104,7 @@ export const handleAddGame = async (
     return;
   }
 
-  const game: Game = {
+  const game = {
     players: gamePlayers,
     date: date.toLocaleDateString(),
     mvpId,
