@@ -3,6 +3,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Player, PlayerInGame } from "@/service/types";
 import { Medal, Star } from "@phosphor-icons/react";
 import { Checkbox } from "./ui/checkbox";
+import { cn } from "@/lib/utils";
 
 interface DraggableFactionProps {
   faction: string;
@@ -21,14 +22,6 @@ const DraggableFaction = ({
   handleFactionChange,
   handleMVPChange,
 }: DraggableFactionProps) => {
-
-  const getMedalColor = () => {
-    if (index === 0) return "text-yellow-500 border-yellow-500";
-    if (index === 1) return "text-gray-400 border-gray-400";
-    if (index === 2) return "text-orange-400 border-orange-400";
-    return "";
-  };
-
   const getPoints = () => {
     const pointsMap = [15, 12, 10, 8, 6, 4, 2, 1];
     return pointsMap[index] || 0;
@@ -50,16 +43,20 @@ const DraggableFaction = ({
           }}
         >
           <div className="flex justify-between">
-            <div className="flex items-center mb-1">
-              {index < 3 && (
-                <Medal
-                  className={`${getMedalColor()} mr-2 h-6 w-6`}
-                />
-              )}
+            <div className="flex items-center mb-1 gap-2">
+              {index === 0 && <Medal className="w-6 h-6 text-yellow-500" />}
+              {index === 1 && <Medal className="w-6 h-6 text-gray-400" />}
+              {index === 2 && <Medal className="w-6 h-6 text-orange-400" />}
+              <label 
+              className={cn('text-sm font-medium', {
+                'ml-8': index > 2,
+              })}
+              >
+                {faction}
+              </label>
               {player?.isMVP && (
                 <Star className="text-yellow-500 mr-2 h-6 w-6" />
               )}
-              <label className='text-sm font-medium'>{faction}</label>
             </div>
             <div className="w-fit">
               {`${getPoints()} pts ${player?.isMVP ? ' + 1 pts' : ''}`}

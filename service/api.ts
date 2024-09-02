@@ -2,6 +2,7 @@
 import path from "path";
 import fs from 'fs/promises';
 import { Game, Player } from "./types";
+import { revalidatePath } from "next/cache";
 
 const gamesFilePath = path.resolve('public/games.json');
 const playersFilePath = path.join('public/players.json');
@@ -11,7 +12,8 @@ export const addGame = async (newGame: Game) => {
     const fileData = await fs.readFile(gamesFilePath, 'utf-8');
     const games = JSON.parse(fileData) as Game[];
 
-    games.push(newGame);
+    const game = {...newGame, id: generateUniqueId()};
+    games.push(game);
 
     await fs.writeFile(gamesFilePath, JSON.stringify(games, null, 2), 'utf-8');
   } catch (error) {
@@ -29,6 +31,16 @@ async function readPlayersFile(): Promise<Player[]> {
   }
 }
 
+async function readGamesFile(): Promise<Game[]> {
+  try {
+    const fileContents = await fs.readFile(gamesFilePath, 'utf8');
+    return JSON.parse(fileContents) as Game[];
+  } catch (error) {
+    console.error('Failed to read games file:', error);
+    return [];
+  }
+}
+
 async function writePlayersFile(players: Player[]): Promise<void> {
   try {
     await fs.writeFile(playersFilePath, JSON.stringify(players, null, 2), 'utf8');
@@ -37,8 +49,20 @@ async function writePlayersFile(players: Player[]): Promise<void> {
   }
 }
 
+async function writeGamesFile(games: Game[]): Promise<void> {
+  try {
+    await fs.writeFile(gamesFilePath, JSON.stringify(games, null, 2), 'utf8');
+  } catch (error) {
+    console.error('Failed to write games file:', error);
+  }
+}
+
 export async function getAllPlayers(): Promise<Player[]> {
   return await readPlayersFile();
+}
+
+export async function getAllGames(): Promise<Game[]> {
+  return await readGamesFile();
 }
 
 export async function addPlayer(name: string): Promise<Player> {
@@ -60,6 +84,20 @@ export async function deletePlayer(id: string): Promise<Player | null> {
   const removedPlayer = players.splice(playerIndex, 1)[0];
   await writePlayersFile(players);
   return removedPlayer;
+}
+
+export async function deleteGame(id: string): Promise<Game | null> {
+  const games = await readGamesFile();
+  const gameIndex = games.findIndex(games => games.id === id);
+
+  if (gameIndex === -1) {
+    return null;
+  }
+
+  const removedGame = games.splice(gameIndex, 1)[0];
+  await writeGamesFile(games);
+  revalidatePath('/');
+  return removedGame;
 }
 
 function generateUniqueId(): string {

@@ -22,6 +22,7 @@ export interface PlayerInGame {
 };
 
 export interface Game {
+  id: string;
   date: string;
   players: PlayerInGame[];
   mvpId: string;

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import { Toaster } from "@/components/ui/toaster";
+import { AuthProvider } from "@/service/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,11 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} flex`}>
-        <Sidebar />
-        <main className="flex-1 p-4 bg-gray-100">{children}</main>
-        <Toaster />
-      </body>
+      <AuthProvider>
+        <body className={`${inter.className} flex`}>
+          <Sidebar />
+          <main className="flex-1 p-4 bg-gray-100">{children}</main>
+          <Toaster />
+        </body>
+      </AuthProvider>
     </html>
   );
 }

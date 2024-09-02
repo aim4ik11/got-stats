@@ -62,7 +62,7 @@ const DraggableList = () => {
         />
         <Button
           onClick={() => handleAddGame(players, date, toast)}
-          className='border-black bg-gray-400 hover:bg-gray-500 hover:text-white'
+          className='border-gray-800 text-gray-800 border hover:bg-gray-300'
         >
           Save Game
         </Button>
