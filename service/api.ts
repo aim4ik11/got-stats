@@ -26,8 +26,14 @@ async function readPlayersFile(): Promise<Player[]> {
     const fileContents = await fs.readFile(playersFilePath, 'utf8');
     return JSON.parse(fileContents) as Player[];
   } catch (error) {
-    console.error('Failed to read players file:', error);
-    return [];
+    if (error.code === 'ENOENT') {
+      console.error('File not found, creating new one...');
+      await writePlayersFile([]);
+      return [];
+    } else {
+      console.error('Failed to read players file:', error);
+      return [];
+    }
   }
 }
 
