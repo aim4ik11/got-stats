@@ -13,7 +13,7 @@ interface GameProps {
 
 const GameItem = ({ game }: GameProps) => {
   const {isAuthorized} = useAuth();
-  const allPlayers = usePlayers();
+  const { allPlayers } = usePlayers();
 
   const getPlayerName = (id: string) => {
     const player = allPlayers.find((player) => player.id === id);

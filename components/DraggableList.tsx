@@ -11,7 +11,7 @@ import { getAvailablePlayers, handleAddGame, handleMVPChange, onFactionDragEnd }
 const factionOptions = Object.values(Faction);
 
 const DraggableList = () => {
-  const allPlayers = usePlayers();
+  const { allPlayers } = usePlayers();
   const { toast } = useToast();
   const [players, setPlayers] = useState<PlayerInGame[]>(
     Array(factionOptions.length).fill({ playerId: '', faction: '' })
