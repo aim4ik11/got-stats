@@ -3,7 +3,7 @@ import { Game } from "@/service/types";
 
 const useGames = () => {
   const [allGames, setAllGames] = useState<Game[]>([]);
-  const [newGameName, setNewGameName] = useState('');
+  const [newGame, setNewGame] = useState<Partial<Game>>({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const useGames = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: newGameName }),
+        body: JSON.stringify(newGame),
       });
 
       if (response.ok) {
@@ -68,8 +68,8 @@ const useGames = () => {
 
   return {
     allGames,
-    newGameName,
-    setNewGameName,
+    newGame,
+    setNewGame,
     addGame,
     deleteGame,
     loading,
